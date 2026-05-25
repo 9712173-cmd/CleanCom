@@ -14,6 +14,7 @@
     :root {
       --milk: #F7F6F4;
       --sand: #E7E2D9;
+      --sand-soft: #EFEAE3;
       --graphite: #2B2B2B;
       --soft: #625D56;
       --muted: #8A837B;
@@ -55,26 +56,53 @@
       object-fit: cover;
     }
 
+    /* Фон отдельным слоем. Так он корректнее работает на GitHub Pages и в мобильной версии. */
+    .cc-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background: var(--milk);
+    }
+
+    .cc-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(247, 246, 244, 0.91), rgba(247, 246, 244, 0.94)),
+        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1900&q=85") center top / cover no-repeat;
+      opacity: 1;
+    }
+
+    .cc-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08)),
+        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85") center center / cover no-repeat;
+      opacity: 0.07;
+      filter: blur(1px);
+    }
+
     .cc-page {
       position: relative;
+      z-index: 1;
       overflow: hidden;
-      background:
-        linear-gradient(rgba(247, 246, 244, 0.92), rgba(247, 246, 244, 0.95)),
-        url("images/bg.jpg") center top / cover fixed no-repeat;
     }
 
     .cc-container {
       width: min(1160px, 92vw);
       margin: 0 auto;
-      position: relative;
-      z-index: 1;
     }
 
     .cc-nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(247, 246, 244, 0.90);
+      background: rgba(247, 246, 244, 0.86);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
@@ -136,7 +164,7 @@
     }
 
     .cc-btn-light {
-      background: rgba(255, 255, 255, 0.66);
+      background: rgba(255, 255, 255, 0.58);
       border: 1px solid var(--line);
       color: var(--graphite);
     }
@@ -198,6 +226,7 @@
       gap: 14px;
     }
 
+    /* Фото через <img>, но с фиксированной пропорцией. Это стабильнее для GitHub Pages и мобильных браузеров. */
     .cc-photo-card {
       position: relative;
       overflow: hidden;
@@ -231,7 +260,7 @@
     }
 
     .cc-section-soft {
-      background: rgba(231, 226, 217, 0.70);
+      background: rgba(231, 226, 217, 0.58);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
     }
@@ -265,7 +294,7 @@
       min-height: 236px;
       padding: 30px;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(255, 255, 255, 0.64);
       border: 1px solid var(--line);
     }
 
@@ -326,7 +355,7 @@
     .cc-pill {
       padding: 20px 22px;
       border-radius: 24px;
-      background: rgba(255, 255, 255, 0.68);
+      background: rgba(255, 255, 255, 0.58);
       border: 1px solid rgba(43, 43, 43, 0.06);
       color: var(--soft);
       font-size: 15px;
@@ -356,7 +385,7 @@
       min-height: 220px;
       padding: 30px;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(255, 255, 255, 0.64);
       border: 1px solid var(--line);
     }
 
@@ -377,7 +406,7 @@
       padding: 112px 0;
       background:
         radial-gradient(circle at 18% 12%, rgba(168, 181, 163, 0.16), transparent 34%),
-        radial-gradient(circle at 84% 60%, rgba(231, 226, 217, 0.70), transparent 36%);
+        radial-gradient(circle at 84% 60%, rgba(231, 226, 217, 0.62), transparent 36%);
     }
 
     .cc-cta .cc-title {
@@ -399,7 +428,7 @@
       border-top: 1px solid var(--line);
       color: var(--soft);
       font-size: 14px;
-      background: rgba(247, 246, 244, 0.82);
+      background: rgba(247, 246, 244, 0.55);
     }
 
     .cc-footer-inner {
@@ -409,6 +438,7 @@
       flex-wrap: wrap;
     }
 
+    /* Анимация */
     .cc-reveal {
       opacity: 0;
       transform: translateY(24px);
@@ -454,12 +484,6 @@
         aspect-ratio: 4 / 4.8;
         min-height: 380px;
         border-radius: 30px;
-      }
-
-      .cc-page {
-        background:
-          linear-gradient(rgba(247, 246, 244, 0.92), rgba(247, 246, 244, 0.95)),
-          url("images/bg.jpg") center top / cover scroll no-repeat;
       }
     }
 
@@ -520,6 +544,19 @@
         border-radius: 24px;
       }
 
+      .cc-bg::before {
+        background:
+          linear-gradient(rgba(247, 246, 244, 0.92), rgba(247, 246, 244, 0.95)),
+          url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1100&q=85") center top / cover no-repeat;
+      }
+
+      .cc-bg::after {
+        opacity: 0.10;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08)),
+          url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1100&q=85") center center / cover no-repeat;
+      }
+
       .cc-cta {
         padding: 72px 0;
       }
@@ -532,6 +569,8 @@
   </style>
 </head>
 <body>
+  <div class="cc-bg" aria-hidden="true"></div>
+
   <div class="cc-page" id="top">
     <header class="cc-nav">
       <div class="cc-container cc-nav-inner">
@@ -573,7 +612,7 @@
           </div>
 
           <figure class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
-            <img src="images/hero.jpg" alt="Светлый дом с большими окнами" loading="eager" decoding="async">
+            <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1300&q=85" alt="Светлый дом с большими окнами" loading="eager" decoding="async">
           </figure>
         </div>
       </section>
@@ -614,7 +653,7 @@
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
             <figure class="cc-photo-card" aria-label="Светлая гостиная">
-              <img src="images/services.jpg" alt="Светлая гостиная" loading="lazy" decoding="async">
+              <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1300&q=85" alt="Светлая гостиная" loading="lazy" decoding="async">
             </figure>
           </div>
 
@@ -659,7 +698,7 @@
 
           <div class="cc-photo-wrap cc-reveal cc-delay-1">
             <figure class="cc-photo-card" aria-label="Окна и второй свет">
-              <img src="images/windows.jpg" alt="Окна и второй свет" loading="lazy" decoding="async">
+              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1300&q=85" alt="Окна и второй свет" loading="lazy" decoding="async">
             </figure>
           </div>
         </div>
@@ -669,7 +708,7 @@
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
             <figure class="cc-photo-card" aria-label="Спокойный интерьер">
-              <img src="images/materials.jpg" alt="Спокойный интерьер" loading="lazy" decoding="async">
+              <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1300&q=85" alt="Спокойный интерьер" loading="lazy" decoding="async">
             </figure>
           </div>
 

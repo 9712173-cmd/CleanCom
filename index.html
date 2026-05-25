@@ -49,42 +49,43 @@
       text-decoration: none;
     }
 
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Фон отдельным слоем. Так он корректнее работает на GitHub Pages и в мобильной версии. */
     .cc-bg {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
       overflow: hidden;
-      background: var(--milk);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(168, 181, 163, 0.12), transparent 26%),
+        radial-gradient(circle at 88% 20%, rgba(231, 226, 217, 0.85), transparent 34%),
+        linear-gradient(120deg, rgba(247,246,244,0.97), rgba(247,246,244,0.92));
     }
 
     .cc-bg::before {
       content: "";
       position: absolute;
-      inset: 0;
+      inset: -80px;
+      opacity: 0.16;
       background:
-        linear-gradient(rgba(247, 246, 244, 0.91), rgba(247, 246, 244, 0.94)),
-        url("images/bg-house.jpg") center top / cover no-repeat;
-      opacity: 1;
+        linear-gradient(90deg, transparent 0 10%, rgba(43,43,43,0.10) 10% 10.4%, transparent 10.4% 22%, rgba(43,43,43,0.08) 22% 22.35%, transparent 22.35% 34%, rgba(43,43,43,0.08) 34% 34.35%, transparent 34.35% 100%),
+        linear-gradient(0deg, transparent 0 18%, rgba(43,43,43,0.08) 18% 18.25%, transparent 18.25% 36%, rgba(43,43,43,0.08) 36% 36.25%, transparent 36.25% 100%);
+      transform: rotate(-4deg) scale(1.1);
+      filter: blur(0.3px);
     }
 
     .cc-bg::after {
       content: "";
       position: absolute;
-      inset: 0;
+      right: -12vw;
+      top: 8vh;
+      width: 58vw;
+      height: 78vh;
+      border-radius: 44px;
+      opacity: 0.10;
       background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08)),
-        url("images/bg-windows.jpg") center center / cover no-repeat;
-      opacity: 0.07;
-      filter: blur(1px);
+        linear-gradient(135deg, rgba(255,255,255,0.65), rgba(247,246,244,0.1)),
+        repeating-linear-gradient(90deg, rgba(43,43,43,0.18) 0 2px, transparent 2px 96px),
+        repeating-linear-gradient(0deg, rgba(43,43,43,0.12) 0 2px, transparent 2px 118px);
     }
 
     .cc-page {
@@ -102,7 +103,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(247, 246, 244, 0.86);
+      background: rgba(247, 246, 244, 0.88);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
@@ -164,7 +165,7 @@
     }
 
     .cc-btn-light {
-      background: rgba(255, 255, 255, 0.58);
+      background: rgba(255, 255, 255, 0.62);
       border: 1px solid var(--line);
       color: var(--graphite);
     }
@@ -226,7 +227,6 @@
       gap: 14px;
     }
 
-    /* Фото через <img>, но с фиксированной пропорцией. Это стабильнее для GitHub Pages и мобильных браузеров. */
     .cc-photo-card {
       position: relative;
       overflow: hidden;
@@ -235,23 +235,153 @@
       background: var(--sand);
       aspect-ratio: 4 / 5;
       min-height: 520px;
+      isolation: isolate;
+    }
+
+    .cc-photo-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(43,43,43,0.04));
+      pointer-events: none;
     }
 
     .cc-photo-card::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(43,43,43,0.05));
+      z-index: 2;
       pointer-events: none;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.28), transparent 30%);
     }
 
-    .cc-photo-card img {
+    .cc-visual {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+      z-index: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .cc-visual-hero {
+      background:
+        linear-gradient(rgba(247,246,244,0.05), rgba(43,43,43,0.04)),
+        radial-gradient(circle at 18% 18%, rgba(168,181,163,0.28), transparent 28%),
+        linear-gradient(90deg, rgba(255,255,255,0.22) 0 8%, transparent 8% 18%, rgba(255,255,255,0.20) 18% 26%, transparent 26% 100%),
+        linear-gradient(0deg, rgba(255,255,255,0.24) 0 16%, transparent 16% 100%),
+        linear-gradient(135deg, #f7f3ec, #d9d0c2 58%, #b9c4b3);
+    }
+
+    .cc-visual-hero::before,
+    .cc-visual-windows::before {
+      content: "";
+      position: absolute;
+      inset: 10% 11% 9% 11%;
+      border-radius: 22px;
+      opacity: 0.62;
+      background:
+        repeating-linear-gradient(90deg, rgba(43,43,43,0.22) 0 2px, transparent 2px 94px),
+        repeating-linear-gradient(0deg, rgba(43,43,43,0.16) 0 2px, transparent 2px 110px),
+        linear-gradient(135deg, rgba(255,255,255,0.35), rgba(168,181,163,0.18));
+    }
+
+    .cc-visual-hero::after {
+      content: "";
+      position: absolute;
+      left: 11%;
+      bottom: 9%;
+      width: 58%;
+      height: 24%;
+      border-radius: 36px 36px 18px 18px;
+      background: rgba(255,255,255,0.55);
+      box-shadow: 0 20px 60px rgba(43,43,43,0.08);
+    }
+
+    .cc-visual-services {
+      background:
+        radial-gradient(circle at 20% 24%, rgba(168,181,163,0.34), transparent 20%),
+        linear-gradient(90deg, rgba(255,255,255,0.58) 0 48%, transparent 48%),
+        linear-gradient(0deg, rgba(43,43,43,0.06) 0 1px, transparent 1px 100%),
+        linear-gradient(135deg, #f6f0e6, #d7c9b7 58%, #f7f6f4);
+    }
+
+    .cc-visual-services::before {
+      content: "";
+      position: absolute;
+      left: 10%;
+      bottom: 12%;
+      width: 76%;
+      height: 25%;
+      border-radius: 44px;
+      background: rgba(255,255,255,0.62);
+      box-shadow: 0 22px 70px rgba(43,43,43,0.10);
+    }
+
+    .cc-visual-services::after {
+      content: "";
+      position: absolute;
+      right: 12%;
+      bottom: 10%;
+      width: 30%;
+      height: 12%;
+      border-radius: 50%;
+      background: rgba(150,136,116,0.22);
+    }
+
+    .cc-visual-windows {
+      background:
+        radial-gradient(circle at 22% 26%, rgba(168,181,163,0.30), transparent 24%),
+        linear-gradient(90deg, rgba(255,255,255,0.24), transparent 44%),
+        linear-gradient(135deg, #eef0e7, #d8dfd0 48%, #f8f5ee 100%);
+    }
+
+    .cc-visual-windows::before {
+      inset: 6% 8% 7% 8%;
+      opacity: 0.72;
+    }
+
+    .cc-visual-windows::after {
+      content: "";
+      position: absolute;
+      right: 10%;
+      bottom: 9%;
+      width: 54%;
+      height: 18%;
+      border-radius: 40px;
+      background: rgba(255,255,255,0.55);
+      box-shadow: 0 22px 70px rgba(43,43,43,0.08);
+    }
+
+    .cc-visual-materials {
+      background:
+        radial-gradient(circle at 28% 22%, rgba(168,181,163,0.26), transparent 22%),
+        linear-gradient(90deg, rgba(255,255,255,0.50) 0 38%, transparent 38% 100%),
+        linear-gradient(135deg, #f4eee5, #d8cabc 58%, #f9f8f5);
+    }
+
+    .cc-visual-materials::before {
+      content: "";
+      position: absolute;
+      left: 10%;
+      bottom: 16%;
+      width: 62%;
+      height: 27%;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.58);
+      box-shadow: 0 22px 70px rgba(43,43,43,0.08);
+    }
+
+    .cc-visual-materials::after {
+      content: "";
+      position: absolute;
+      right: 13%;
+      bottom: 13%;
+      width: 26%;
+      height: 17%;
+      border-radius: 50%;
+      background: rgba(123,107,88,0.19);
     }
 
     .cc-section {
@@ -438,7 +568,6 @@
       flex-wrap: wrap;
     }
 
-    /* Анимация */
     .cc-reveal {
       opacity: 0;
       transform: translateY(24px);
@@ -544,17 +673,8 @@
         border-radius: 24px;
       }
 
-      .cc-bg::before {
-        background:
-          linear-gradient(rgba(247, 246, 244, 0.92), rgba(247, 246, 244, 0.95)),
-          url("images/bg-house-mobile.jpg") center top / cover no-repeat;
-      }
-
       .cc-bg::after {
-        opacity: 0.10;
-        background:
-          linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08)),
-          url("images/bg-windows-mobile.jpg") center center / cover no-repeat;
+        opacity: 0.08;
       }
 
       .cc-cta {
@@ -612,7 +732,7 @@
           </div>
 
           <figure class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
-            <img src="images/hero.jpg" alt="Светлый дом с большими окнами" loading="eager" decoding="async">
+            <div class="cc-visual cc-visual-hero"></div>
           </figure>
         </div>
       </section>
@@ -653,7 +773,7 @@
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
             <figure class="cc-photo-card" aria-label="Светлая гостиная">
-              <img src="images/services.jpg" alt="Светлая гостиная" loading="lazy" decoding="async">
+              <div class="cc-visual cc-visual-services"></div>
             </figure>
           </div>
 
@@ -698,7 +818,7 @@
 
           <div class="cc-photo-wrap cc-reveal cc-delay-1">
             <figure class="cc-photo-card" aria-label="Окна и второй свет">
-              <img src="images/windows.jpg" alt="Окна и второй свет" loading="lazy" decoding="async">
+              <div class="cc-visual cc-visual-windows"></div>
             </figure>
           </div>
         </div>
@@ -708,7 +828,7 @@
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
             <figure class="cc-photo-card" aria-label="Спокойный интерьер">
-              <img src="images/materials.jpg" alt="Спокойный интерьер" loading="lazy" decoding="async">
+              <div class="cc-visual cc-visual-materials"></div>
             </figure>
           </div>
 

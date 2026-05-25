@@ -10,6 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <script>
+    document.documentElement.classList.add('cc-js');
+  </script>
+
   <style>
     :root {
       --milk: #F7F6F4;
@@ -52,9 +56,22 @@
     .cc-page {
       position: relative;
       overflow: hidden;
-      background:
+      background-color: var(--milk);
+      background-image:
         linear-gradient(rgba(247, 246, 244, 0.92), rgba(247, 246, 244, 0.95)),
-        url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80") center top / cover fixed no-repeat;
+        url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80");
+      background-position:
+        center top,
+        center top;
+      background-size:
+        auto,
+        cover;
+      background-repeat:
+        repeat,
+        no-repeat;
+      background-attachment:
+        scroll,
+        fixed;
     }
 
     .cc-page::before {
@@ -632,14 +649,27 @@
     }
 
     .cc-reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    .cc-js .cc-reveal {
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    .cc-reveal.cc-visible {
+    .cc-js .cc-reveal.cc-visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cc-js .cc-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
 
     .cc-delay-1 { transition-delay: 0.08s; }
@@ -647,6 +677,16 @@
     .cc-delay-3 { transition-delay: 0.24s; }
 
     @media (max-width: 960px) {
+      .cc-page {
+        background-attachment:
+          scroll,
+          scroll;
+      }
+
+      .cc-page::before {
+        position: absolute;
+      }
+
       .cc-menu {
         display: none;
       }
@@ -789,7 +829,7 @@
           </div>
 
           <figure class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
-            <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1300&q=80" alt="Светлый дом с большими окнами" loading="eager" decoding="async">
+            <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1300&q=80" alt="Светлый дом с большими окнами" loading="eager" decoding="async" fetchpriority="high">
           </figure>
         </div>
       </section>

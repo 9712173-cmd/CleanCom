@@ -42,11 +42,26 @@
       position: relative;
       overflow: hidden;
       background:
-        linear-gradient(rgba(247,246,244,0.90), rgba(247,246,244,0.95)),
-        url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80") center top / cover fixed no-repeat;
+        radial-gradient(circle at 12% 16%, rgba(168,181,163,.13), transparent 26%),
+        radial-gradient(circle at 86% 18%, rgba(231,226,217,.9), transparent 36%),
+        linear-gradient(120deg, rgba(247,246,244,.98), rgba(247,246,244,.93));
     }
 
-    .cc-container { width: min(1160px, 92vw); margin: 0 auto; }
+    /* Еле заметные окна на фоне страницы — без внешних картинок */
+    .cc-page::before {
+      content: "";
+      position: fixed;
+      inset: -80px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .08;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 110px, rgba(43,43,43,.22) 110px 112px),
+        repeating-linear-gradient(0deg, transparent 0 128px, rgba(43,43,43,.18) 128px 130px);
+      transform: rotate(-4deg) scale(1.12);
+    }
+
+    .cc-container { width: min(1160px, 92vw); margin: 0 auto; position: relative; z-index: 1; }
 
     .cc-nav {
       position: sticky;
@@ -70,14 +85,7 @@
     .cc-logo b { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
     .cc-logo span { font-size: 12px; color: var(--muted); }
 
-    .cc-menu {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      font-size: 14px;
-      color: var(--soft);
-    }
-
+    .cc-menu { display: flex; align-items: center; gap: 24px; font-size: 14px; color: var(--soft); }
     .cc-menu a:hover { color: var(--graphite); }
 
     .cc-btn {
@@ -89,19 +97,19 @@
       border-radius: 999px;
       font-size: 15px;
       font-weight: 500;
-      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+      transition: transform .2s ease, opacity .2s ease, background .2s ease;
       white-space: nowrap;
     }
 
     .cc-btn-dark { background: var(--graphite); color: var(--white); }
-    .cc-btn-light { background: rgba(255, 255, 255, 0.62); border: 1px solid var(--line); color: var(--graphite); }
-    .cc-btn:hover { transform: translateY(-2px); opacity: 0.92; }
+    .cc-btn-light { background: rgba(255,255,255,.66); border: 1px solid var(--line); color: var(--graphite); }
+    .cc-btn:hover { transform: translateY(-2px); opacity: .92; }
 
     .cc-hero { padding: 82px 0 92px; }
 
     .cc-hero-grid {
       display: grid;
-      grid-template-columns: 1fr 0.88fr;
+      grid-template-columns: 1fr .88fr;
       align-items: center;
       gap: clamp(32px, 5vw, 72px);
     }
@@ -113,7 +121,7 @@
       margin-bottom: 22px;
       color: var(--muted);
       font-size: 12px;
-      letter-spacing: 0.08em;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
@@ -123,195 +131,157 @@
       max-width: 780px;
       font-size: clamp(42px, 6vw, 78px);
       line-height: 1.05;
-      letter-spacing: -0.045em;
+      letter-spacing: -.045em;
       font-weight: 500;
       margin-bottom: 24px;
     }
 
-    .cc-lead {
-      max-width: 640px;
-      font-size: clamp(17px, 2vw, 21px);
-      color: var(--soft);
-      margin-bottom: 34px;
-    }
-
+    .cc-lead { max-width: 640px; font-size: clamp(17px, 2vw, 21px); color: var(--soft); margin-bottom: 34px; }
     .cc-actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
+    /* Визуальные карточки — полностью CSS, без картинок и SVG */
     .cc-photo-card {
       position: relative;
       overflow: hidden;
       border-radius: 40px;
       box-shadow: var(--shadow);
-      background: var(--sand);
       aspect-ratio: 4 / 5;
       min-height: 520px;
+      background-color: var(--sand);
+      isolation: isolate;
     }
 
-    .cc-photo-card img,
-    .cc-photo-card svg,
-    .cc-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
+    .cc-photo-card::before,
+    .cc-photo-card::after { content: ""; position: absolute; pointer-events: none; }
+
+    .cc-photo-hero {
+      background:
+        radial-gradient(circle at 18% 22%, rgba(168,181,163,.28), transparent 28%),
+        linear-gradient(135deg, #fbf8f1 0%, #e4dacb 58%, #c8d2c2 100%);
+    }
+    .cc-photo-hero::before {
+      inset: 10% 11% 28% 11%;
+      border-radius: 22px;
+      background:
+        repeating-linear-gradient(90deg, rgba(43,43,43,.18) 0 2px, transparent 2px 25%),
+        repeating-linear-gradient(0deg, rgba(43,43,43,.13) 0 2px, transparent 2px 25%),
+        linear-gradient(135deg, rgba(255,255,255,.46), rgba(168,181,163,.14));
+    }
+    .cc-photo-hero::after {
+      left: 14%; right: 18%; bottom: 12%; height: 22%;
+      border-radius: 42px 42px 24px 24px;
+      background: rgba(255,255,255,.62);
+      box-shadow: 0 24px 70px rgba(43,43,43,.10);
     }
 
-    .cc-photo-card img {
-      object-fit: cover;
-      object-position: center;
+    .cc-photo-services {
+      background:
+        radial-gradient(circle at 22% 22%, rgba(168,181,163,.30), transparent 24%),
+        linear-gradient(90deg, rgba(255,255,255,.50) 0 42%, transparent 42% 100%),
+        linear-gradient(135deg, #f8f4ec 0%, #dfd0bd 62%, #f7f6f4 100%);
+    }
+    .cc-photo-services::before {
+      left: 10%; right: 10%; bottom: 14%; height: 24%;
+      border-radius: 54px;
+      background: rgba(255,255,255,.66);
+      box-shadow: 0 24px 70px rgba(43,43,43,.10);
+    }
+    .cc-photo-services::after {
+      right: 13%; bottom: 10%; width: 30%; height: 13%;
+      border-radius: 50%;
+      background: rgba(150,136,116,.20);
     }
 
-    .cc-photo-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(43,43,43,0.05));
-      pointer-events: none;
+    .cc-photo-windows {
+      background:
+        radial-gradient(circle at 24% 30%, rgba(168,181,163,.28), transparent 26%),
+        linear-gradient(135deg, #f8f6ef 0%, #e2e5d9 55%, #c9d6c5 100%);
+    }
+    .cc-photo-windows::before {
+      inset: 7% 8% 18% 8%;
+      border-radius: 22px;
+      background:
+        repeating-linear-gradient(90deg, rgba(43,43,43,.18) 0 2px, transparent 2px 25%),
+        repeating-linear-gradient(0deg, rgba(43,43,43,.14) 0 2px, transparent 2px 20%),
+        linear-gradient(135deg, rgba(255,255,255,.42), rgba(168,181,163,.16));
+    }
+    .cc-photo-windows::after {
+      right: 10%; bottom: 10%; width: 56%; height: 18%;
+      border-radius: 48px;
+      background: rgba(255,255,255,.63);
+      box-shadow: 0 24px 70px rgba(43,43,43,.08);
+    }
+
+    .cc-photo-materials {
+      background:
+        radial-gradient(circle at 28% 22%, rgba(168,181,163,.22), transparent 22%),
+        linear-gradient(90deg, rgba(255,255,255,.50) 0 38%, transparent 38% 100%),
+        linear-gradient(135deg, #f7f4ee 0%, #e3d5c5 60%, #f6f2ea 100%);
+    }
+    .cc-photo-materials::before {
+      left: 10%; bottom: 16%; width: 62%; height: 27%;
+      border-radius: 30px;
+      background: rgba(255,255,255,.62);
+      box-shadow: 0 24px 70px rgba(43,43,43,.08);
+    }
+    .cc-photo-materials::after {
+      right: 13%; bottom: 13%; width: 26%; height: 17%;
+      border-radius: 50%;
+      background: rgba(123,107,88,.18);
     }
 
     .cc-section { padding: 104px 0; position: relative; }
-
-    .cc-section-soft {
-      background: rgba(231, 226, 217, 0.70);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-    }
+    .cc-section-soft { background: rgba(231,226,217,.70); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
 
     .cc-head { max-width: 780px; margin-bottom: 46px; }
-
-    .cc-title {
-      font-size: clamp(32px, 4vw, 54px);
-      line-height: 1.12;
-      letter-spacing: -0.035em;
-      font-weight: 500;
-      margin-bottom: 16px;
-    }
-
+    .cc-title { font-size: clamp(32px, 4vw, 54px); line-height: 1.12; letter-spacing: -.035em; font-weight: 500; margin-bottom: 16px; }
     .cc-text { color: var(--soft); font-size: 18px; max-width: 700px; }
 
     .cc-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-
-    .cc-card {
-      min-height: 236px;
-      padding: 30px;
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid var(--line);
-    }
-
-    .cc-card-num {
-      color: var(--sage);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      margin-bottom: 30px;
-    }
-
+    .cc-card { min-height: 236px; padding: 30px; border-radius: 30px; background: rgba(255,255,255,.72); border: 1px solid var(--line); }
+    .cc-card-num { color: var(--sage); font-size: 12px; text-transform: uppercase; letter-spacing: .09em; margin-bottom: 30px; }
     .cc-card h3 { font-size: 22px; line-height: 1.24; font-weight: 500; margin-bottom: 12px; }
     .cc-card p { color: var(--soft); font-size: 16px; }
 
-    .cc-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: clamp(36px, 5vw, 64px);
-    }
-
+    .cc-split { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(36px, 5vw, 64px); }
     .cc-split-reverse .cc-photo-wrap { order: 1; }
     .cc-split-reverse .cc-copy { order: 2; }
 
     .cc-list { display: grid; margin-top: 28px; }
+    .cc-list-item { padding: 18px 0; border-bottom: 1px solid rgba(43,43,43,.11); color: var(--soft); font-size: 16px; }
 
-    .cc-list-item {
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(43, 43, 43, 0.11);
-      color: var(--soft);
-      font-size: 16px;
-    }
+    .cc-service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 30px; }
+    .cc-pill { padding: 20px 22px; border-radius: 24px; background: rgba(255,255,255,.68); border: 1px solid rgba(43,43,43,.06); color: var(--soft); font-size: 15px; }
 
-    .cc-service-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 30px;
-    }
-
-    .cc-pill {
-      padding: 20px 22px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.68);
-      border: 1px solid rgba(43, 43, 43, 0.06);
-      color: var(--soft);
-      font-size: 15px;
-    }
-
-    .cc-quote {
-      max-width: 1000px;
-      margin: 0 auto;
-      text-align: center;
-      font-size: clamp(30px, 4vw, 52px);
-      line-height: 1.16;
-      letter-spacing: -0.035em;
-      font-weight: 500;
-    }
-
+    .cc-quote { max-width: 1000px; margin: 0 auto; text-align: center; font-size: clamp(30px, 4vw, 52px); line-height: 1.16; letter-spacing: -.035em; font-weight: 500; }
     .cc-quote span { color: var(--soft); }
 
     .cc-prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-
-    .cc-price {
-      min-height: 220px;
-      padding: 30px;
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid var(--line);
-    }
-
+    .cc-price { min-height: 220px; padding: 30px; border-radius: 30px; background: rgba(255,255,255,.72); border: 1px solid var(--line); }
     .cc-price b { display: block; font-size: 22px; font-weight: 500; margin-bottom: 12px; }
     .cc-price p { color: var(--soft); font-size: 16px; }
 
-    .cc-cta {
-      text-align: center;
-      padding: 112px 0;
-      background:
-        radial-gradient(circle at 18% 12%, rgba(168, 181, 163, 0.16), transparent 34%),
-        radial-gradient(circle at 84% 60%, rgba(231, 226, 217, 0.70), transparent 36%);
-    }
-
+    .cc-cta { text-align: center; padding: 112px 0; background: radial-gradient(circle at 18% 12%, rgba(168,181,163,.16), transparent 34%), radial-gradient(circle at 84% 60%, rgba(231,226,217,.70), transparent 36%); }
     .cc-cta .cc-title { max-width: 860px; margin-left: auto; margin-right: auto; }
     .cc-cta .cc-text { margin: 0 auto 32px; }
     .cc-cta .cc-actions { justify-content: center; }
 
-    .cc-footer {
-      padding: 34px 0;
-      border-top: 1px solid var(--line);
-      color: var(--soft);
-      font-size: 14px;
-      background: rgba(247, 246, 244, 0.82);
-    }
-
+    .cc-footer { padding: 34px 0; border-top: 1px solid var(--line); color: var(--soft); font-size: 14px; background: rgba(247,246,244,.82); }
     .cc-footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 
-    .cc-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .cc-reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
     .cc-reveal.cc-visible { opacity: 1; transform: translateY(0); }
-    .cc-delay-1 { transition-delay: 0.08s; }
-    .cc-delay-2 { transition-delay: 0.16s; }
-    .cc-delay-3 { transition-delay: 0.24s; }
+    .cc-delay-1 { transition-delay: .08s; }
+    .cc-delay-2 { transition-delay: .16s; }
+    .cc-delay-3 { transition-delay: .24s; }
 
     @media (max-width: 960px) {
       .cc-menu { display: none; }
-      .cc-hero-grid,
-      .cc-split,
-      .cc-cards,
-      .cc-prices,
-      .cc-service-grid { grid-template-columns: 1fr; }
+      .cc-hero-grid, .cc-split, .cc-cards, .cc-prices, .cc-service-grid { grid-template-columns: 1fr; }
       .cc-hero { padding: 42px 0 72px; }
-      .cc-split-reverse .cc-photo-wrap,
-      .cc-split-reverse .cc-copy { order: initial; }
+      .cc-split-reverse .cc-photo-wrap, .cc-split-reverse .cc-copy { order: initial; }
       .cc-section { padding: 76px 0; }
       .cc-photo-card { aspect-ratio: 4 / 4.8; min-height: 380px; border-radius: 30px; }
-      .cc-page { background-attachment: scroll; }
     }
 
     @media (max-width: 560px) {
@@ -319,13 +289,11 @@
       .cc-nav-inner { min-height: 68px; }
       .cc-logo b { font-size: 16px; }
       .cc-logo span { font-size: 11px; }
-      .cc-h1 { font-size: 40px; letter-spacing: -0.04em; }
-      .cc-lead,
-      .cc-text { font-size: 16px; }
+      .cc-h1 { font-size: 40px; letter-spacing: -.04em; }
+      .cc-lead, .cc-text { font-size: 16px; }
       .cc-actions { width: 100%; }
       .cc-btn { width: 100%; }
-      .cc-card,
-      .cc-price { border-radius: 24px; padding: 24px; min-height: auto; }
+      .cc-card, .cc-price { border-radius: 24px; padding: 24px; min-height: auto; }
       .cc-title { font-size: 32px; }
       .cc-quote { font-size: 30px; text-align: left; }
       .cc-photo-card { aspect-ratio: 4 / 5; min-height: 320px; border-radius: 24px; }
@@ -357,43 +325,16 @@
       <section class="cc-hero">
         <div class="cc-container cc-hero-grid">
           <div class="cc-copy cc-reveal">
-            <div class="cc-eyebrow">
-              <span class="cc-dot"></span>
-              загородные дома · окна · второй свет
-            </div>
-
+            <div class="cc-eyebrow"><span class="cc-dot"></span> загородные дома · окна · второй свет</div>
             <h1 class="cc-h1">Дом, в котором порядок не держится только на вас</h1>
-
-            <p class="cc-lead">
-              Спокойный сервис ухода за домом: поддерживающая и генеральная уборка,
-              окна, второй свет, мягкая мебель и деликатный подход к дорогим материалам.
-            </p>
-
+            <p class="cc-lead">Спокойный сервис ухода за домом: поддерживающая и генеральная уборка, окна, второй свет, мягкая мебель и деликатный подход к дорогим материалам.</p>
             <div class="cc-actions">
               <a class="cc-btn cc-btn-dark" href="https://wa.me/79219128686" target="_blank">Написать в WhatsApp</a>
               <a class="cc-btn cc-btn-light" href="https://www.instagram.com/cleancom_spb/" target="_blank">Instagram</a>
             </div>
           </div>
 
-          <figure class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
-            <svg class="cc-svg" viewBox="0 0 800 1000" role="img" aria-label="Светлый дом с большими окнами" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <linearGradient id="heroBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F8F6F1"/><stop offset=".58" stop-color="#E4DDD1"/><stop offset="1" stop-color="#C8D0C0"/></linearGradient>
-                <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#2B2B2B" flood-opacity=".12"/></filter>
-              </defs>
-              <rect width="800" height="1000" fill="url(#heroBg)"/>
-              <rect x="92" y="92" width="616" height="604" rx="24" fill="rgba(255,255,255,.38)"/>
-              <g stroke="rgba(43,43,43,.18)" stroke-width="3">
-                <line x1="92" y1="250" x2="708" y2="250"/><line x1="92" y1="410" x2="708" y2="410"/><line x1="92" y1="570" x2="708" y2="570"/>
-                <line x1="250" y1="92" x2="250" y2="696"/><line x1="400" y1="92" x2="400" y2="696"/><line x1="550" y1="92" x2="550" y2="696"/>
-              </g>
-              <circle cx="170" cy="765" r="92" fill="#D4C7B6" opacity=".45"/>
-              <rect x="212" y="670" width="410" height="190" rx="90" fill="rgba(255,255,255,.66)" filter="url(#softShadow)"/>
-              <rect x="480" y="760" width="180" height="42" rx="21" fill="#B8A58C" opacity=".28"/>
-              <path d="M108 720 C160 670, 236 660, 298 702" fill="none" stroke="#A8B5A3" stroke-width="9" stroke-linecap="round" opacity=".75"/>
-              <rect width="800" height="1000" fill="rgba(247,246,244,.06)"/>
-            </svg>
-          </figure>
+          <div class="cc-photo-card cc-photo-hero cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами"></div>
         </div>
       </section>
 
@@ -401,138 +342,48 @@
         <div class="cc-container">
           <div class="cc-head cc-reveal">
             <h2 class="cc-title">Мы говорим не только про чистоту</h2>
-            <p class="cc-text">
-              CleanCom — это сервис для домов, где важны порядок, свет, бережный уход
-              и ощущение спокойствия в пространстве.
-            </p>
+            <p class="cc-text">CleanCom — это сервис для домов, где важны порядок, свет, бережный уход и ощущение спокойствия в пространстве.</p>
           </div>
 
           <div class="cc-cards">
-            <div class="cc-card cc-reveal cc-delay-1">
-              <div class="cc-card-num">01</div>
-              <h3>Снимаем бытовую нагрузку</h3>
-              <p>Чтобы порядок в доме не держался только на вашем контроле и постоянном включении.</p>
-            </div>
-
-            <div class="cc-card cc-reveal cc-delay-2">
-              <div class="cc-card-num">02</div>
-              <h3>Бережно работаем с интерьером</h3>
-              <p>Учитываем материалы, поверхности, текстиль, стекло и особенности дома.</p>
-            </div>
-
-            <div class="cc-card cc-reveal cc-delay-3">
-              <div class="cc-card-num">03</div>
-              <h3>Сохраняем ощущение дома</h3>
-              <p>Для нас важно не только «чисто», но и то, как дом ощущается после ухода.</p>
-            </div>
+            <div class="cc-card cc-reveal cc-delay-1"><div class="cc-card-num">01</div><h3>Снимаем бытовую нагрузку</h3><p>Чтобы порядок в доме не держался только на вашем контроле и постоянном включении.</p></div>
+            <div class="cc-card cc-reveal cc-delay-2"><div class="cc-card-num">02</div><h3>Бережно работаем с интерьером</h3><p>Учитываем материалы, поверхности, текстиль, стекло и особенности дома.</p></div>
+            <div class="cc-card cc-reveal cc-delay-3"><div class="cc-card-num">03</div><h3>Сохраняем ощущение дома</h3><p>Для нас важно не только «чисто», но и то, как дом ощущается после ухода.</p></div>
           </div>
         </div>
       </section>
 
       <section class="cc-section cc-section-soft" id="services">
         <div class="cc-container cc-split cc-split-reverse">
-          <div class="cc-photo-wrap cc-reveal">
-            <figure class="cc-photo-card" aria-label="Светлая гостиная">
-              <svg class="cc-svg" viewBox="0 0 800 1000" role="img" aria-label="Светлая гостиная" preserveAspectRatio="xMidYMid slice">
-                <defs><linearGradient id="livingBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FAF8F3"/><stop offset=".62" stop-color="#E6DCCD"/><stop offset="1" stop-color="#D0C2AF"/></linearGradient></defs>
-                <rect width="800" height="1000" fill="url(#livingBg)"/>
-                <rect x="80" y="90" width="260" height="520" fill="rgba(255,255,255,.42)"/>
-                <g stroke="rgba(43,43,43,.13)" stroke-width="3"><line x1="170" y1="90" x2="170" y2="610"/><line x1="80" y1="260" x2="340" y2="260"/><line x1="80" y1="430" x2="340" y2="430"/></g>
-                <rect x="120" y="642" width="560" height="176" rx="86" fill="rgba(255,255,255,.62)"/>
-                <rect x="214" y="564" width="120" height="96" rx="22" fill="#E5D9CA"/>
-                <rect x="390" y="560" width="120" height="102" rx="22" fill="#EEE8DE"/>
-                <ellipse cx="410" cy="850" rx="215" ry="54" fill="rgba(129,112,91,.16)"/>
-                <rect x="330" y="788" width="160" height="42" rx="21" fill="#B9A58B" opacity=".34"/>
-                <path d="M610 615 c-20-80-4-156 48-216" fill="none" stroke="#A8B5A3" stroke-width="8" stroke-linecap="round" opacity=".65"/>
-              </svg>
-            </figure>
-          </div>
-
+          <div class="cc-photo-wrap cc-reveal"><div class="cc-photo-card cc-photo-services" aria-label="Светлая гостиная"></div></div>
           <div class="cc-copy cc-reveal cc-delay-1">
             <h2 class="cc-title">С какими задачами к нам обращаются</h2>
-            <p class="cc-text">
-              Основной фокус CleanCom — загородные дома, коттеджи и пространства,
-              где важны регулярность, аккуратность и предсказуемый результат.
-            </p>
-
+            <p class="cc-text">Основной фокус CleanCom — загородные дома, коттеджи и пространства, где важны регулярность, аккуратность и предсказуемый результат.</p>
             <div class="cc-service-grid">
-              <div class="cc-pill">Поддерживающая уборка</div>
-              <div class="cc-pill">Генеральная уборка</div>
-              <div class="cc-pill">Уборка после строительства</div>
-              <div class="cc-pill">Окна и второй свет</div>
-              <div class="cc-pill">Чистка мягкой мебели</div>
-              <div class="cc-pill">Бережный / эко-подход</div>
+              <div class="cc-pill">Поддерживающая уборка</div><div class="cc-pill">Генеральная уборка</div><div class="cc-pill">Уборка после строительства</div><div class="cc-pill">Окна и второй свет</div><div class="cc-pill">Чистка мягкой мебели</div><div class="cc-pill">Бережный / эко-подход</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="cc-section">
-        <div class="cc-container cc-reveal">
-          <p class="cc-quote">
-            Чистый дом — это не только отсутствие пыли.
-            <span>Это ощущение, что пространство снова стало лёгким.</span>
-          </p>
-        </div>
-      </section>
+      <section class="cc-section"><div class="cc-container cc-reveal"><p class="cc-quote">Чистый дом — это не только отсутствие пыли. <span>Это ощущение, что пространство снова стало лёгким.</span></p></div></section>
 
       <section class="cc-section" id="windows">
         <div class="cc-container cc-split">
           <div class="cc-copy cc-reveal">
             <h2 class="cc-title">Окна и второй свет — отдельная задача</h2>
-            <p class="cc-text">
-              В домах со вторым светом окна требуют не просто мойки, а аккуратной работы на высоте.
-              Здесь важны безопасный доступ, техника и итоговое ощущение света в доме.
-              После такой мойки пространство ощущается заметно легче и чище.
-            </p>
+            <p class="cc-text">В домах со вторым светом окна требуют не просто мойки, а аккуратной работы на высоте. Здесь важны безопасный доступ, техника и итоговое ощущение света в доме. После такой мойки пространство ощущается заметно легче и чище.</p>
           </div>
-
-          <div class="cc-photo-wrap cc-reveal cc-delay-1">
-            <figure class="cc-photo-card" aria-label="Окна и второй свет">
-              <svg class="cc-svg" viewBox="0 0 800 1000" role="img" aria-label="Окна и второй свет" preserveAspectRatio="xMidYMid slice">
-                <defs><linearGradient id="windowBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F9F7F1"/><stop offset=".56" stop-color="#E7E4D8"/><stop offset="1" stop-color="#C8D5C5"/></linearGradient></defs>
-                <rect width="800" height="1000" fill="url(#windowBg)"/>
-                <rect x="68" y="60" width="664" height="760" rx="22" fill="rgba(255,255,255,.36)"/>
-                <g stroke="rgba(43,43,43,.17)" stroke-width="3">
-                  <line x1="68" y1="226" x2="732" y2="226"/><line x1="68" y1="392" x2="732" y2="392"/><line x1="68" y1="558" x2="732" y2="558"/><line x1="68" y1="724" x2="732" y2="724"/>
-                  <line x1="234" y1="60" x2="234" y2="820"/><line x1="400" y1="60" x2="400" y2="820"/><line x1="566" y1="60" x2="566" y2="820"/>
-                </g>
-                <path d="M0 820 C180 742, 355 734, 800 828 L800 1000 L0 1000 Z" fill="#EFE6D8" opacity=".76"/>
-                <rect x="390" y="730" width="300" height="96" rx="48" fill="rgba(255,255,255,.62)"/>
-                <ellipse cx="295" cy="865" rx="132" ry="38" fill="rgba(137,121,98,.16)"/>
-                <path d="M108 700 C150 630, 174 560, 186 480" fill="none" stroke="#A8B5A3" stroke-width="10" stroke-linecap="round" opacity=".62"/>
-              </svg>
-            </figure>
-          </div>
+          <div class="cc-photo-wrap cc-reveal cc-delay-1"><div class="cc-photo-card cc-photo-windows" aria-label="Окна и второй свет"></div></div>
         </div>
       </section>
 
       <section class="cc-section cc-section-soft">
         <div class="cc-container cc-split cc-split-reverse">
-          <div class="cc-photo-wrap cc-reveal">
-            <figure class="cc-photo-card" aria-label="Спокойный интерьер">
-              <svg class="cc-svg" viewBox="0 0 800 1000" role="img" aria-label="Спокойный интерьер" preserveAspectRatio="xMidYMid slice">
-                <defs><linearGradient id="materialsBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F8F6F2"/><stop offset=".6" stop-color="#E4D8C9"/><stop offset="1" stop-color="#F5F1EA"/></linearGradient></defs>
-                <rect width="800" height="1000" fill="url(#materialsBg)"/>
-                <rect x="76" y="130" width="250" height="360" fill="rgba(255,255,255,.44)"/>
-                <g stroke="rgba(43,43,43,.12)" stroke-width="3"><line x1="201" y1="130" x2="201" y2="490"/><line x1="76" y1="310" x2="326" y2="310"/></g>
-                <rect x="126" y="635" width="520" height="165" rx="36" fill="rgba(255,255,255,.58)"/>
-                <rect x="142" y="568" width="168" height="92" rx="18" fill="#E1D5C6"/>
-                <rect x="358" y="570" width="168" height="90" rx="18" fill="#F0E9DF"/>
-                <circle cx="520" cy="820" r="76" fill="#B9A58B" opacity=".25"/>
-                <rect x="438" y="846" width="178" height="36" rx="18" fill="#A69278" opacity=".24"/>
-                <path d="M612 598 C650 522, 654 452, 632 384" fill="none" stroke="#A8B5A3" stroke-width="8" stroke-linecap="round" opacity=".62"/>
-              </svg>
-            </figure>
-          </div>
-
+          <div class="cc-photo-wrap cc-reveal"><div class="cc-photo-card cc-photo-materials" aria-label="Спокойный интерьер"></div></div>
           <div class="cc-copy cc-reveal cc-delay-1">
             <h2 class="cc-title">Дорогой интерьер требует бережного ухода</h2>
-            <p class="cc-text">
-              Не все поверхности можно убирать одинаково. В доме могут быть материалы,
-              которым важны мягкие средства, аккуратная техника и внимательный подход.
-            </p>
-
+            <p class="cc-text">Не все поверхности можно убирать одинаково. В доме могут быть материалы, которым важны мягкие средства, аккуратная техника и внимательный подход.</p>
             <div class="cc-list">
               <div class="cc-list-item">Учитываем материалы, а не работаем одним средством для всего</div>
               <div class="cc-list-item">Подбираем способ ухода под камень, дерево, матовые поверхности и текстиль</div>
@@ -544,28 +395,11 @@
 
       <section class="cc-section" id="price">
         <div class="cc-container">
-          <div class="cc-head cc-reveal">
-            <h2 class="cc-title">Как формируется стоимость</h2>
-            <p class="cc-text">
-              Мы даём ориентир заранее, но точную стоимость называем после оценки объёма работ.
-            </p>
-          </div>
-
+          <div class="cc-head cc-reveal"><h2 class="cc-title">Как формируется стоимость</h2><p class="cc-text">Мы даём ориентир заранее, но точную стоимость называем после оценки объёма работ.</p></div>
           <div class="cc-prices">
-            <div class="cc-price cc-reveal cc-delay-1">
-              <b>На стоимость влияют</b>
-              <p>Метраж, реальное состояние дома, окна, кухня, санузлы и сложные зоны.</p>
-            </div>
-
-            <div class="cc-price cc-reveal cc-delay-2">
-              <b>Почему нужна оценка</b>
-              <p>Даже два дома одного метража могут требовать разного объёма работы.</p>
-            </div>
-
-            <div class="cc-price cc-reveal cc-delay-3">
-              <b>Как получить ориентир</b>
-              <p>Напишите нам в WhatsApp, расскажите задачу и отправьте фото или видео пространства.</p>
-            </div>
+            <div class="cc-price cc-reveal cc-delay-1"><b>На стоимость влияют</b><p>Метраж, реальное состояние дома, окна, кухня, санузлы и сложные зоны.</p></div>
+            <div class="cc-price cc-reveal cc-delay-2"><b>Почему нужна оценка</b><p>Даже два дома одного метража могут требовать разного объёма работы.</p></div>
+            <div class="cc-price cc-reveal cc-delay-3"><b>Как получить ориентир</b><p>Напишите нам в WhatsApp, расскажите задачу и отправьте фото или видео пространства.</p></div>
           </div>
         </div>
       </section>
@@ -573,46 +407,22 @@
       <section class="cc-cta" id="contact">
         <div class="cc-container cc-reveal">
           <h2 class="cc-title">Хотите понять, какой формат ухода подойдёт вашему дому?</h2>
-          <p class="cc-text">
-            Напишите нам — подскажем предварительный ориентир, зададим несколько уточняющих вопросов
-            и поможем подобрать формат ухода.
-          </p>
-
-          <div class="cc-actions">
-            <a class="cc-btn cc-btn-dark" href="https://wa.me/79219128686" target="_blank">Написать в WhatsApp</a>
-            <a class="cc-btn cc-btn-light" href="https://www.instagram.com/cleancom_spb/" target="_blank">Перейти в Instagram</a>
-          </div>
+          <p class="cc-text">Напишите нам — подскажем предварительный ориентир, зададим несколько уточняющих вопросов и поможем подобрать формат ухода.</p>
+          <div class="cc-actions"><a class="cc-btn cc-btn-dark" href="https://wa.me/79219128686" target="_blank">Написать в WhatsApp</a><a class="cc-btn cc-btn-light" href="https://www.instagram.com/cleancom_spb/" target="_blank">Перейти в Instagram</a></div>
         </div>
       </section>
     </main>
 
-    <footer class="cc-footer">
-      <div class="cc-container cc-footer-inner">
-        <span>CleanCom | КлинКом</span>
-        <span>Санкт-Петербург и Ленинградская область</span>
-        <span>+7 921 912-86-86</span>
-      </div>
-    </footer>
+    <footer class="cc-footer"><div class="cc-container cc-footer-inner"><span>CleanCom | КлинКом</span><span>Санкт-Петербург и Ленинградская область</span><span>+7 921 912-86-86</span></div></footer>
   </div>
 
   <script>
     (function () {
       const items = document.querySelectorAll('.cc-reveal');
-
-      if (!('IntersectionObserver' in window)) {
-        items.forEach(el => el.classList.add('cc-visible'));
-        return;
-      }
-
+      if (!('IntersectionObserver' in window)) { items.forEach(el => el.classList.add('cc-visible')); return; }
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('cc-visible');
-            observer.unobserve(entry.target);
-          }
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('cc-visible'); observer.unobserve(entry.target); } });
       }, { threshold: 0.12 });
-
       items.forEach(el => observer.observe(el));
     })();
   </script>

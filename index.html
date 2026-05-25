@@ -38,36 +38,10 @@
       font-family: "Noto Sans", Arial, sans-serif;
       color: var(--graphite);
       line-height: 1.55;
-      background-color: var(--milk);
-      position: relative;
+      background: var(--milk);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-    }
-
-    /* Еле заметный фон с домом / окнами */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background:
-        linear-gradient(rgba(247, 246, 244, 0.94), rgba(247, 246, 244, 0.95)),
-        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1900&q=85") center top / cover no-repeat;
-      pointer-events: none;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.06)),
-        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85") center center / cover no-repeat;
-      opacity: 0.06;
-      filter: blur(1px);
-      pointer-events: none;
     }
 
     a {
@@ -75,7 +49,47 @@
       text-decoration: none;
     }
 
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Фон отдельным слоем. Так он корректнее работает на GitHub Pages и в мобильной версии. */
+    .cc-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background: var(--milk);
+    }
+
+    .cc-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(247, 246, 244, 0.91), rgba(247, 246, 244, 0.94)),
+        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1900&q=85") center top / cover no-repeat;
+      opacity: 1;
+    }
+
+    .cc-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08)),
+        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85") center center / cover no-repeat;
+      opacity: 0.07;
+      filter: blur(1px);
+    }
+
     .cc-page {
+      position: relative;
+      z-index: 1;
       overflow: hidden;
     }
 
@@ -90,6 +104,7 @@
       z-index: 100;
       background: rgba(247, 246, 244, 0.86);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
     }
 
@@ -211,54 +226,32 @@
       gap: 14px;
     }
 
-    /* Фото-блоки через background-image: не будет пустоты и половинчатого отображения */
-    .cc-hero-photo,
-    .cc-photo {
+    /* Фото через <img>, но с фиксированной пропорцией. Это стабильнее для GitHub Pages и мобильных браузеров. */
+    .cc-photo-card {
       position: relative;
-      width: 100%;
       overflow: hidden;
       border-radius: 40px;
       box-shadow: var(--shadow);
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-color: var(--sand);
-    }
-
-    .cc-hero-photo {
-      aspect-ratio: 4 / 5;
-      min-height: 520px;
-      background-image:
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(43, 43, 43, 0.04)),
-        url("https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1500&q=85"),
-        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1500&q=85");
-    }
-
-    .cc-photo {
+      background: var(--sand);
       aspect-ratio: 4 / 5;
       min-height: 520px;
     }
 
-    .cc-services-photo {
-      background-image:
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(43, 43, 43, 0.05)),
-        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1500&q=85"),
-        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1500&q=85");
+    .cc-photo-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(43,43,43,0.05));
+      pointer-events: none;
     }
 
-    .cc-windows-photo {
-      background-image:
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(43, 43, 43, 0.04)),
-        url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1500&q=85"),
-        url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb3?auto=format&fit=crop&w=1500&q=85");
-      background-position: center center;
-    }
-
-    .cc-materials-photo {
-      background-image:
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(43, 43, 43, 0.05)),
-        url("https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1500&q=85"),
-        url("https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1500&q=85");
+    .cc-photo-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
     .cc-section {
@@ -269,6 +262,7 @@
     .cc-section-soft {
       background: rgba(231, 226, 217, 0.58);
       backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
 
     .cc-head {
@@ -486,8 +480,7 @@
         padding: 76px 0;
       }
 
-      .cc-hero-photo,
-      .cc-photo {
+      .cc-photo-card {
         aspect-ratio: 4 / 4.8;
         min-height: 380px;
         border-radius: 30px;
@@ -545,11 +538,23 @@
         text-align: left;
       }
 
-      .cc-hero-photo,
-      .cc-photo {
+      .cc-photo-card {
         aspect-ratio: 4 / 5;
         min-height: 320px;
         border-radius: 24px;
+      }
+
+      .cc-bg::before {
+        background:
+          linear-gradient(rgba(247, 246, 244, 0.92), rgba(247, 246, 244, 0.95)),
+          url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1100&q=85") center top / cover no-repeat;
+      }
+
+      .cc-bg::after {
+        opacity: 0.10;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08)),
+          url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1100&q=85") center center / cover no-repeat;
       }
 
       .cc-cta {
@@ -564,6 +569,8 @@
   </style>
 </head>
 <body>
+  <div class="cc-bg" aria-hidden="true"></div>
+
   <div class="cc-page" id="top">
     <header class="cc-nav">
       <div class="cc-container cc-nav-inner">
@@ -604,7 +611,9 @@
             </div>
           </div>
 
-          <div class="cc-hero-photo cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами"></div>
+          <figure class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
+            <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1300&q=85" alt="Светлый дом с большими окнами" loading="eager" decoding="async">
+          </figure>
         </div>
       </section>
 
@@ -643,7 +652,9 @@
       <section class="cc-section cc-section-soft" id="services">
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
-            <div class="cc-photo cc-services-photo" aria-label="Светлая гостиная"></div>
+            <figure class="cc-photo-card" aria-label="Светлая гостиная">
+              <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1300&q=85" alt="Светлая гостиная" loading="lazy" decoding="async">
+            </figure>
           </div>
 
           <div class="cc-copy cc-reveal cc-delay-1">
@@ -686,7 +697,9 @@
           </div>
 
           <div class="cc-photo-wrap cc-reveal cc-delay-1">
-            <div class="cc-photo cc-windows-photo" aria-label="Окна и второй свет"></div>
+            <figure class="cc-photo-card" aria-label="Окна и второй свет">
+              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1300&q=85" alt="Окна и второй свет" loading="lazy" decoding="async">
+            </figure>
           </div>
         </div>
       </section>
@@ -694,7 +707,9 @@
       <section class="cc-section cc-section-soft">
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
-            <div class="cc-photo cc-materials-photo" aria-label="Спокойный интерьер"></div>
+            <figure class="cc-photo-card" aria-label="Спокойный интерьер">
+              <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1300&q=85" alt="Спокойный интерьер" loading="lazy" decoding="async">
+            </figure>
           </div>
 
           <div class="cc-copy cc-reveal cc-delay-1">

@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -53,9 +53,8 @@
       position: relative;
       overflow: hidden;
       background:
-        radial-gradient(circle at 13% 12%, rgba(168, 181, 163, 0.13), transparent 24%),
-        radial-gradient(circle at 88% 18%, rgba(231, 226, 217, 0.88), transparent 34%),
-        linear-gradient(120deg, rgba(247, 246, 244, 0.98), rgba(247, 246, 244, 0.93));
+        linear-gradient(rgba(247, 246, 244, 0.92), rgba(247, 246, 244, 0.95)),
+        url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80") center top / cover fixed no-repeat;
     }
 
     .cc-page::before {
@@ -223,9 +222,17 @@
       inset: 0;
       z-index: 10;
       pointer-events: none;
-      background:
-        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.28), transparent 30%),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(43, 43, 43, 0.04));
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(43, 43, 43, 0.05));
+    }
+
+    .cc-photo-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
 
     .cc-scene {
@@ -781,14 +788,9 @@
             </div>
           </div>
 
-          <div class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
-            <div class="cc-scene scene-hero">
-              <div class="cc-window"></div>
-              <div class="cc-sofa"></div>
-              <div class="cc-table"></div>
-              <div class="cc-plant"></div>
-            </div>
-          </div>
+          <figure class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
+            <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1300&q=80" alt="Светлый дом с большими окнами" loading="eager" decoding="async">
+          </figure>
         </div>
       </section>
 
@@ -827,14 +829,9 @@
       <section class="cc-section cc-section-soft" id="services">
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
-            <div class="cc-photo-card" aria-label="Светлая гостиная">
-              <div class="cc-scene scene-services">
-                <div class="cc-window"></div>
-                <div class="cc-sofa"></div>
-                <div class="cc-table"></div>
-                <div class="cc-pouf"></div>
-              </div>
-            </div>
+            <figure class="cc-photo-card" aria-label="Светлая гостиная">
+              <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1300&q=80" alt="Светлая гостиная" loading="lazy" decoding="async">
+            </figure>
           </div>
 
           <div class="cc-copy cc-reveal cc-delay-1">
@@ -877,14 +874,9 @@
           </div>
 
           <div class="cc-photo-wrap cc-reveal cc-delay-1">
-            <div class="cc-photo-card" aria-label="Окна и второй свет">
-              <div class="cc-scene scene-windows">
-                <div class="cc-window"></div>
-                <div class="cc-sofa"></div>
-                <div class="cc-table"></div>
-                <div class="cc-plant"></div>
-              </div>
-            </div>
+            <figure class="cc-photo-card" aria-label="Окна и второй свет">
+              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1300&q=80" alt="Окна и второй свет" loading="lazy" decoding="async">
+            </figure>
           </div>
         </div>
       </section>
@@ -892,14 +884,9 @@
       <section class="cc-section cc-section-soft">
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
-            <div class="cc-photo-card" aria-label="Спокойный интерьер">
-              <div class="cc-scene scene-materials">
-                <div class="cc-window"></div>
-                <div class="cc-sofa"></div>
-                <div class="cc-table"></div>
-                <div class="cc-plant"></div>
-              </div>
-            </div>
+            <figure class="cc-photo-card" aria-label="Спокойный интерьер">
+              <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=1300&q=80" alt="Спокойный интерьер" loading="lazy" decoding="async">
+            </figure>
           </div>
 
           <div class="cc-copy cc-reveal cc-delay-1">

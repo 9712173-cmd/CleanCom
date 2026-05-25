@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CleanCom | КлинКом — клининг домов в СПб и ЛО</title>
+  <meta name="description" content="CleanCom — спокойный сервис ухода за загородными домами, окнами, вторым светом и деликатными интерьерами в Санкт-Петербурге и Ленинградской области." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --milk: #F7F6F4;
+      --sand: #E7E2D9;
+      --sand-soft: #EFEAE3;
+      --graphite: #2B2B2B;
+      --soft: #625D56;
+      --muted: #8A837B;
+      --line: rgba(43, 43, 43, 0.10);
+      --white: #FFFFFF;
+      --sage: #A8B5A3;
+      --shadow: 0 28px 80px rgba(43, 43, 43, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Sans", Arial, sans-serif;
+      color: var(--graphite);
+      line-height: 1.55;
+      background: var(--milk);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Фон отдельным слоем. Так он корректнее работает на GitHub Pages и в мобильной версии. */
+    .cc-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background: var(--milk);
+    }
+
+    .cc-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(247, 246, 244, 0.91), rgba(247, 246, 244, 0.94)),
+        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1900&q=85") center top / cover no-repeat;
+      opacity: 1;
+    }
+
+    .cc-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08)),
+        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85") center center / cover no-repeat;
+      opacity: 0.07;
+      filter: blur(1px);
+    }
+
+    .cc-page {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .cc-container {
+      width: min(1160px, 92vw);
+      margin: 0 auto;
+    }
+
+    .cc-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247, 246, 244, 0.86);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cc-nav-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .cc-logo {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .cc-logo b {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .cc-logo span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .cc-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+      color: var(--soft);
+    }
+
+    .cc-menu a:hover {
+      color: var(--graphite);
+    }
+
+    .cc-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 23px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .cc-btn-dark {
+      background: var(--graphite);
+      color: var(--white);
+    }
+
+    .cc-btn-light {
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid var(--line);
+      color: var(--graphite);
+    }
+
+    .cc-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .cc-hero {
+      padding: 82px 0 92px;
+    }
+
+    .cc-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.88fr;
+      align-items: center;
+      gap: clamp(32px, 5vw, 72px);
+    }
+
+    .cc-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cc-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--sage);
+      flex-shrink: 0;
+    }
+
+    .cc-h1 {
+      max-width: 780px;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .cc-lead {
+      max-width: 640px;
+      font-size: clamp(17px, 2vw, 21px);
+      color: var(--soft);
+      margin-bottom: 34px;
+    }
+
+    .cc-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    /* Фото через <img>, но с фиксированной пропорцией. Это стабильнее для GitHub Pages и мобильных браузеров. */
+    .cc-photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 40px;
+      box-shadow: var(--shadow);
+      background: var(--sand);
+      aspect-ratio: 4 / 5;
+      min-height: 520px;
+    }
+
+    .cc-photo-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(43,43,43,0.05));
+      pointer-events: none;
+    }
+
+    .cc-photo-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .cc-section {
+      padding: 104px 0;
+      position: relative;
+    }
+
+    .cc-section-soft {
+      background: rgba(231, 226, 217, 0.58);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    .cc-head {
+      max-width: 780px;
+      margin-bottom: 46px;
+    }
+
+    .cc-title {
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .cc-text {
+      color: var(--soft);
+      font-size: 18px;
+      max-width: 700px;
+    }
+
+    .cc-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .cc-card {
+      min-height: 236px;
+      padding: 30px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.64);
+      border: 1px solid var(--line);
+    }
+
+    .cc-card-num {
+      color: var(--sage);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      margin-bottom: 30px;
+    }
+
+    .cc-card h3 {
+      font-size: 22px;
+      line-height: 1.24;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .cc-card p {
+      color: var(--soft);
+      font-size: 16px;
+    }
+
+    .cc-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: clamp(36px, 5vw, 64px);
+    }
+
+    .cc-split-reverse .cc-photo-wrap {
+      order: 1;
+    }
+
+    .cc-split-reverse .cc-copy {
+      order: 2;
+    }
+
+    .cc-list {
+      display: grid;
+      margin-top: 28px;
+    }
+
+    .cc-list-item {
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(43, 43, 43, 0.11);
+      color: var(--soft);
+      font-size: 16px;
+    }
+
+    .cc-service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .cc-pill {
+      padding: 20px 22px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(43, 43, 43, 0.06);
+      color: var(--soft);
+      font-size: 15px;
+    }
+
+    .cc-quote {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.16;
+      letter-spacing: -0.035em;
+      font-weight: 500;
+    }
+
+    .cc-quote span {
+      color: var(--soft);
+    }
+
+    .cc-prices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .cc-price {
+      min-height: 220px;
+      padding: 30px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.64);
+      border: 1px solid var(--line);
+    }
+
+    .cc-price b {
+      display: block;
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .cc-price p {
+      color: var(--soft);
+      font-size: 16px;
+    }
+
+    .cc-cta {
+      text-align: center;
+      padding: 112px 0;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(168, 181, 163, 0.16), transparent 34%),
+        radial-gradient(circle at 84% 60%, rgba(231, 226, 217, 0.62), transparent 36%);
+    }
+
+    .cc-cta .cc-title {
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cc-cta .cc-text {
+      margin: 0 auto 32px;
+    }
+
+    .cc-cta .cc-actions {
+      justify-content: center;
+    }
+
+    .cc-footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      color: var(--soft);
+      font-size: 14px;
+      background: rgba(247, 246, 244, 0.55);
+    }
+
+    .cc-footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Анимация */
+    .cc-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .cc-reveal.cc-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cc-delay-1 { transition-delay: 0.08s; }
+    .cc-delay-2 { transition-delay: 0.16s; }
+    .cc-delay-3 { transition-delay: 0.24s; }
+
+    @media (max-width: 960px) {
+      .cc-menu {
+        display: none;
+      }
+
+      .cc-hero-grid,
+      .cc-split,
+      .cc-cards,
+      .cc-prices,
+      .cc-service-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cc-hero {
+        padding: 42px 0 72px;
+      }
+
+      .cc-split-reverse .cc-photo-wrap,
+      .cc-split-reverse .cc-copy {
+        order: initial;
+      }
+
+      .cc-section {
+        padding: 76px 0;
+      }
+
+      .cc-photo-card {
+        aspect-ratio: 4 / 4.8;
+        min-height: 380px;
+        border-radius: 30px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .cc-container {
+        width: min(100% - 28px, 1160px);
+      }
+
+      .cc-nav-inner {
+        min-height: 68px;
+      }
+
+      .cc-logo b {
+        font-size: 16px;
+      }
+
+      .cc-logo span {
+        font-size: 11px;
+      }
+
+      .cc-h1 {
+        font-size: 40px;
+        letter-spacing: -0.04em;
+      }
+
+      .cc-lead,
+      .cc-text {
+        font-size: 16px;
+      }
+
+      .cc-actions {
+        width: 100%;
+      }
+
+      .cc-btn {
+        width: 100%;
+      }
+
+      .cc-card,
+      .cc-price {
+        border-radius: 24px;
+        padding: 24px;
+        min-height: auto;
+      }
+
+      .cc-title {
+        font-size: 32px;
+      }
+
+      .cc-quote {
+        font-size: 30px;
+        text-align: left;
+      }
+
+      .cc-photo-card {
+        aspect-ratio: 4 / 5;
+        min-height: 320px;
+        border-radius: 24px;
+      }
+
+      .cc-bg::before {
+        background:
+          linear-gradient(rgba(247, 246, 244, 0.92), rgba(247, 246, 244, 0.95)),
+          url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1100&q=85") center top / cover no-repeat;
+      }
+
+      .cc-bg::after {
+        opacity: 0.10;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08)),
+          url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1100&q=85") center center / cover no-repeat;
+      }
+
+      .cc-cta {
+        padding: 72px 0;
+      }
+
+      .cc-footer-inner {
+        display: grid;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cc-bg" aria-hidden="true"></div>
+
+  <div class="cc-page" id="top">
+    <header class="cc-nav">
+      <div class="cc-container cc-nav-inner">
+        <a class="cc-logo" href="#top">
+          <b>CleanCom | КлинКом</b>
+          <span>Санкт-Петербург и Ленинградская область</span>
+        </a>
+
+        <nav class="cc-menu">
+          <a href="#about">Подход</a>
+          <a href="#services">Услуги</a>
+          <a href="#windows">Окна</a>
+          <a href="#price">Стоимость</a>
+          <a class="cc-btn cc-btn-light" href="https://wa.me/79219128686" target="_blank">WhatsApp</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="cc-hero">
+        <div class="cc-container cc-hero-grid">
+          <div class="cc-copy cc-reveal">
+            <div class="cc-eyebrow">
+              <span class="cc-dot"></span>
+              загородные дома · окна · второй свет
+            </div>
+
+            <h1 class="cc-h1">Дом, в котором порядок не держится только на вас</h1>
+
+            <p class="cc-lead">
+              Спокойный сервис ухода за домом: поддерживающая и генеральная уборка,
+              окна, второй свет, мягкая мебель и деликатный подход к дорогим материалам.
+            </p>
+
+            <div class="cc-actions">
+              <a class="cc-btn cc-btn-dark" href="https://wa.me/79219128686" target="_blank">Написать в WhatsApp</a>
+              <a class="cc-btn cc-btn-light" href="https://www.instagram.com/cleancom_spb/" target="_blank">Instagram</a>
+            </div>
+          </div>
+
+          <figure class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
+            <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1300&q=85" alt="Светлый дом с большими окнами" loading="eager" decoding="async">
+          </figure>
+        </div>
+      </section>
+
+      <section class="cc-section" id="about">
+        <div class="cc-container">
+          <div class="cc-head cc-reveal">
+            <h2 class="cc-title">Мы говорим не только про чистоту</h2>
+            <p class="cc-text">
+              CleanCom — это сервис для домов, где важны порядок, свет, бережный уход
+              и ощущение спокойствия в пространстве.
+            </p>
+          </div>
+
+          <div class="cc-cards">
+            <div class="cc-card cc-reveal cc-delay-1">
+              <div class="cc-card-num">01</div>
+              <h3>Снимаем бытовую нагрузку</h3>
+              <p>Чтобы порядок в доме не держался только на вашем контроле и постоянном включении.</p>
+            </div>
+
+            <div class="cc-card cc-reveal cc-delay-2">
+              <div class="cc-card-num">02</div>
+              <h3>Бережно работаем с интерьером</h3>
+              <p>Учитываем материалы, поверхности, текстиль, стекло и особенности дома.</p>
+            </div>
+
+            <div class="cc-card cc-reveal cc-delay-3">
+              <div class="cc-card-num">03</div>
+              <h3>Сохраняем ощущение дома</h3>
+              <p>Для нас важно не только «чисто», но и то, как дом ощущается после ухода.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cc-section cc-section-soft" id="services">
+        <div class="cc-container cc-split cc-split-reverse">
+          <div class="cc-photo-wrap cc-reveal">
+            <figure class="cc-photo-card" aria-label="Светлая гостиная">
+              <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1300&q=85" alt="Светлая гостиная" loading="lazy" decoding="async">
+            </figure>
+          </div>
+
+          <div class="cc-copy cc-reveal cc-delay-1">
+            <h2 class="cc-title">С какими задачами к нам обращаются</h2>
+            <p class="cc-text">
+              Основной фокус CleanCom — загородные дома, коттеджи и пространства,
+              где важны регулярность, аккуратность и предсказуемый результат.
+            </p>
+
+            <div class="cc-service-grid">
+              <div class="cc-pill">Поддерживающая уборка</div>
+              <div class="cc-pill">Генеральная уборка</div>
+              <div class="cc-pill">Уборка после строительства</div>
+              <div class="cc-pill">Окна и второй свет</div>
+              <div class="cc-pill">Чистка мягкой мебели</div>
+              <div class="cc-pill">Бережный / эко-подход</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cc-section">
+        <div class="cc-container cc-reveal">
+          <p class="cc-quote">
+            Чистый дом — это не только отсутствие пыли.
+            <span>Это ощущение, что пространство снова стало лёгким.</span>
+          </p>
+        </div>
+      </section>
+
+      <section class="cc-section" id="windows">
+        <div class="cc-container cc-split">
+          <div class="cc-copy cc-reveal">
+            <h2 class="cc-title">Окна и второй свет — отдельная задача</h2>
+            <p class="cc-text">
+              В домах со вторым светом окна требуют не просто мойки, а аккуратной работы на высоте.
+              Здесь важны безопасный доступ, техника и итоговое ощущение света в доме.
+              После такой мойки пространство ощущается заметно легче и чище.
+            </p>
+          </div>
+
+          <div class="cc-photo-wrap cc-reveal cc-delay-1">
+            <figure class="cc-photo-card" aria-label="Окна и второй свет">
+              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1300&q=85" alt="Окна и второй свет" loading="lazy" decoding="async">
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="cc-section cc-section-soft">
+        <div class="cc-container cc-split cc-split-reverse">
+          <div class="cc-photo-wrap cc-reveal">
+            <figure class="cc-photo-card" aria-label="Спокойный интерьер">
+              <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1300&q=85" alt="Спокойный интерьер" loading="lazy" decoding="async">
+            </figure>
+          </div>
+
+          <div class="cc-copy cc-reveal cc-delay-1">
+            <h2 class="cc-title">Дорогой интерьер требует бережного ухода</h2>
+            <p class="cc-text">
+              Не все поверхности можно убирать одинаково. В доме могут быть материалы,
+              которым важны мягкие средства, аккуратная техника и внимательный подход.
+            </p>
+
+            <div class="cc-list">
+              <div class="cc-list-item">Учитываем материалы, а не работаем одним средством для всего</div>
+              <div class="cc-list-item">Подбираем способ ухода под камень, дерево, матовые поверхности и текстиль</div>
+              <div class="cc-list-item">Сохраняем не только чистоту, но и внешний вид интерьера</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cc-section" id="price">
+        <div class="cc-container">
+          <div class="cc-head cc-reveal">
+            <h2 class="cc-title">Как формируется стоимость</h2>
+            <p class="cc-text">
+              Мы даём ориентир заранее, но точную стоимость называем после оценки объёма работ.
+            </p>
+          </div>
+
+          <div class="cc-prices">
+            <div class="cc-price cc-reveal cc-delay-1">
+              <b>На стоимость влияют</b>
+              <p>Метраж, реальное состояние дома, окна, кухня, санузлы и сложные зоны.</p>
+            </div>
+
+            <div class="cc-price cc-reveal cc-delay-2">
+              <b>Почему нужна оценка</b>
+              <p>Даже два дома одного метража могут требовать разного объёма работы.</p>
+            </div>
+
+            <div class="cc-price cc-reveal cc-delay-3">
+              <b>Как получить ориентир</b>
+              <p>Напишите нам в WhatsApp, расскажите задачу и отправьте фото или видео пространства.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cc-cta" id="contact">
+        <div class="cc-container cc-reveal">
+          <h2 class="cc-title">Хотите понять, какой формат ухода подойдёт вашему дому?</h2>
+          <p class="cc-text">
+            Напишите нам — подскажем предварительный ориентир, зададим несколько уточняющих вопросов
+            и поможем подобрать формат ухода.
+          </p>
+
+          <div class="cc-actions">
+            <a class="cc-btn cc-btn-dark" href="https://wa.me/79219128686" target="_blank">Написать в WhatsApp</a>
+            <a class="cc-btn cc-btn-light" href="https://www.instagram.com/cleancom_spb/" target="_blank">Перейти в Instagram</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="cc-footer">
+      <div class="cc-container cc-footer-inner">
+        <span>CleanCom | КлинКом</span>
+        <span>Санкт-Петербург и Ленинградская область</span>
+        <span>+7 921 912-86-86</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const items = document.querySelectorAll('.cc-reveal');
+
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('cc-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('cc-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      items.forEach(el => observer.observe(el));
+    })();
+  </script>
+</body>
+</html>

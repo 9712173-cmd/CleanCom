@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -14,7 +14,7 @@
     :root {
       --milk: #F7F6F4;
       --sand: #E7E2D9;
-      --sand-soft: #EFEAE3;
+      --sand-2: #EFEAE3;
       --graphite: #2B2B2B;
       --soft: #625D56;
       --muted: #8A837B;
@@ -49,60 +49,40 @@
       text-decoration: none;
     }
 
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Фон отдельным слоем. Так он корректнее работает на GitHub Pages и в мобильной версии. */
-    .cc-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-      background: var(--milk);
-    }
-
-    .cc-bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(rgba(247, 246, 244, 0.91), rgba(247, 246, 244, 0.94)),
-        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1900&q=85") center top / cover no-repeat;
-      opacity: 1;
-    }
-
-    .cc-bg::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08)),
-        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85") center center / cover no-repeat;
-      opacity: 0.07;
-      filter: blur(1px);
-    }
-
     .cc-page {
       position: relative;
-      z-index: 1;
       overflow: hidden;
+      background:
+        radial-gradient(circle at 13% 12%, rgba(168, 181, 163, 0.13), transparent 24%),
+        radial-gradient(circle at 88% 18%, rgba(231, 226, 217, 0.88), transparent 34%),
+        linear-gradient(120deg, rgba(247, 246, 244, 0.98), rgba(247, 246, 244, 0.93));
+    }
+
+    .cc-page::before {
+      content: "";
+      position: fixed;
+      inset: -100px;
+      pointer-events: none;
+      opacity: 0.075;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 112px, rgba(43, 43, 43, 0.23) 112px 114px),
+        repeating-linear-gradient(0deg, transparent 0 126px, rgba(43, 43, 43, 0.17) 126px 128px);
+      transform: rotate(-4deg) scale(1.12);
+      z-index: 0;
     }
 
     .cc-container {
       width: min(1160px, 92vw);
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .cc-nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(247, 246, 244, 0.86);
+      background: rgba(247, 246, 244, 0.90);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
@@ -164,7 +144,7 @@
     }
 
     .cc-btn-light {
-      background: rgba(255, 255, 255, 0.58);
+      background: rgba(255, 255, 255, 0.66);
       border: 1px solid var(--line);
       color: var(--graphite);
     }
@@ -226,32 +206,233 @@
       gap: 14px;
     }
 
-    /* Фото через <img>, но с фиксированной пропорцией. Это стабильнее для GitHub Pages и мобильных браузеров. */
     .cc-photo-card {
       position: relative;
       overflow: hidden;
       border-radius: 40px;
       box-shadow: var(--shadow);
-      background: var(--sand);
       aspect-ratio: 4 / 5;
       min-height: 520px;
+      background: var(--sand);
+      isolation: isolate;
     }
 
     .cc-photo-card::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(43,43,43,0.05));
+      z-index: 10;
       pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.28), transparent 30%),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(43, 43, 43, 0.04));
     }
 
-    .cc-photo-card img {
+    .cc-scene {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+      overflow: hidden;
+    }
+
+    .cc-window {
+      position: absolute;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.52), rgba(168, 181, 163, 0.16));
+      box-shadow: inset 0 0 0 2px rgba(43, 43, 43, 0.08);
+    }
+
+    .cc-window::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 24%, rgba(43, 43, 43, 0.15) 24% 24.6%, transparent 24.6% 49%, rgba(43, 43, 43, 0.12) 49% 49.6%, transparent 49.6% 74%, rgba(43, 43, 43, 0.12) 74% 74.6%, transparent 74.6% 100%),
+        repeating-linear-gradient(0deg, transparent 0 24%, rgba(43, 43, 43, 0.12) 24% 24.6%, transparent 24.6% 49%, rgba(43, 43, 43, 0.10) 49% 49.6%, transparent 49.6% 74%, rgba(43, 43, 43, 0.10) 74% 74.6%, transparent 74.6% 100%);
+    }
+
+    .cc-sofa {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 24px 70px rgba(43, 43, 43, 0.10);
+    }
+
+    .cc-table,
+    .cc-pouf,
+    .cc-bowl {
+      position: absolute;
+      background: rgba(160, 141, 116, 0.24);
+    }
+
+    .cc-plant {
+      position: absolute;
+      width: 90px;
+      height: 120px;
+    }
+
+    .cc-plant::before,
+    .cc-plant::after {
+      content: "";
+      position: absolute;
+      background: transparent;
+      border-left: 8px solid rgba(168, 181, 163, 0.66);
+      border-radius: 50%;
+      transform-origin: bottom center;
+    }
+
+    .cc-plant::before {
+      width: 90px;
+      height: 110px;
+      transform: rotate(-28deg);
+    }
+
+    .cc-plant::after {
+      width: 70px;
+      height: 96px;
+      left: 34px;
+      transform: rotate(28deg);
+    }
+
+    .scene-hero {
+      background:
+        radial-gradient(circle at 16% 18%, rgba(168, 181, 163, 0.28), transparent 28%),
+        linear-gradient(135deg, #fbf8f1 0%, #e6ddcf 58%, #c9d3c3 100%);
+    }
+
+    .scene-hero .cc-window {
+      left: 11%;
+      top: 9%;
+      width: 78%;
+      height: 62%;
+    }
+
+    .scene-hero .cc-sofa {
+      left: 15%;
+      bottom: 12%;
+      width: 62%;
+      height: 21%;
+      border-radius: 44px 44px 24px 24px;
+    }
+
+    .scene-hero .cc-table {
+      right: 13%;
+      bottom: 11%;
+      width: 32%;
+      height: 8%;
+      border-radius: 50%;
+    }
+
+    .scene-hero .cc-plant {
+      left: 10%;
+      bottom: 18%;
+    }
+
+    .scene-services {
+      background:
+        radial-gradient(circle at 22% 22%, rgba(168, 181, 163, 0.28), transparent 24%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.50) 0 42%, transparent 42% 100%),
+        linear-gradient(135deg, #f8f4ec 0%, #dfd0bd 62%, #f7f6f4 100%);
+    }
+
+    .scene-services .cc-window {
+      left: 10%;
+      top: 12%;
+      width: 32%;
+      height: 49%;
+    }
+
+    .scene-services .cc-sofa {
+      left: 10%;
+      right: 10%;
+      bottom: 14%;
+      height: 24%;
+      border-radius: 54px;
+    }
+
+    .scene-services .cc-table {
+      right: 13%;
+      bottom: 10%;
+      width: 30%;
+      height: 13%;
+      border-radius: 50%;
+    }
+
+    .scene-services .cc-pouf {
+      left: 10%;
+      bottom: 9%;
+      width: 17%;
+      height: 14%;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.52);
+    }
+
+    .scene-windows {
+      background:
+        radial-gradient(circle at 24% 30%, rgba(168, 181, 163, 0.28), transparent 26%),
+        linear-gradient(135deg, #f8f6ef 0%, #e2e5d9 55%, #c9d6c5 100%);
+    }
+
+    .scene-windows .cc-window {
+      left: 8%;
+      top: 6%;
+      width: 84%;
+      height: 74%;
+    }
+
+    .scene-windows .cc-sofa {
+      right: 10%;
+      bottom: 10%;
+      width: 56%;
+      height: 18%;
+      border-radius: 48px;
+    }
+
+    .scene-windows .cc-table {
+      left: 12%;
+      bottom: 11%;
+      width: 26%;
+      height: 8%;
+      border-radius: 50%;
+    }
+
+    .scene-windows .cc-plant {
+      left: 9%;
+      bottom: 21%;
+    }
+
+    .scene-materials {
+      background:
+        radial-gradient(circle at 28% 22%, rgba(168, 181, 163, 0.22), transparent 22%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.50) 0 38%, transparent 38% 100%),
+        linear-gradient(135deg, #f7f4ee 0%, #e3d5c5 60%, #f6f2ea 100%);
+    }
+
+    .scene-materials .cc-window {
+      left: 9%;
+      top: 13%;
+      width: 34%;
+      height: 38%;
+    }
+
+    .scene-materials .cc-sofa {
+      left: 10%;
+      bottom: 16%;
+      width: 62%;
+      height: 27%;
+      border-radius: 30px;
+    }
+
+    .scene-materials .cc-table {
+      right: 13%;
+      bottom: 13%;
+      width: 26%;
+      height: 17%;
+      border-radius: 50%;
+    }
+
+    .scene-materials .cc-plant {
+      right: 12%;
+      bottom: 30%;
     }
 
     .cc-section {
@@ -260,7 +441,7 @@
     }
 
     .cc-section-soft {
-      background: rgba(231, 226, 217, 0.58);
+      background: rgba(231, 226, 217, 0.70);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
     }
@@ -294,7 +475,7 @@
       min-height: 236px;
       padding: 30px;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.64);
+      background: rgba(255, 255, 255, 0.72);
       border: 1px solid var(--line);
     }
 
@@ -345,17 +526,22 @@
       font-size: 16px;
     }
 
-    .cc-service-grid {
+    .cc-service-grid,
+    .cc-pill-stack {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       margin-top: 30px;
     }
 
+    .cc-pill-stack {
+      grid-template-columns: 1fr;
+    }
+
     .cc-pill {
       padding: 20px 22px;
       border-radius: 24px;
-      background: rgba(255, 255, 255, 0.58);
+      background: rgba(255, 255, 255, 0.68);
       border: 1px solid rgba(43, 43, 43, 0.06);
       color: var(--soft);
       font-size: 15px;
@@ -385,7 +571,7 @@
       min-height: 220px;
       padding: 30px;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.64);
+      background: rgba(255, 255, 255, 0.72);
       border: 1px solid var(--line);
     }
 
@@ -406,7 +592,7 @@
       padding: 112px 0;
       background:
         radial-gradient(circle at 18% 12%, rgba(168, 181, 163, 0.16), transparent 34%),
-        radial-gradient(circle at 84% 60%, rgba(231, 226, 217, 0.62), transparent 36%);
+        radial-gradient(circle at 84% 60%, rgba(231, 226, 217, 0.70), transparent 36%);
     }
 
     .cc-cta .cc-title {
@@ -428,7 +614,7 @@
       border-top: 1px solid var(--line);
       color: var(--soft);
       font-size: 14px;
-      background: rgba(247, 246, 244, 0.55);
+      background: rgba(247, 246, 244, 0.82);
     }
 
     .cc-footer-inner {
@@ -438,7 +624,6 @@
       flex-wrap: wrap;
     }
 
-    /* Анимация */
     .cc-reveal {
       opacity: 0;
       transform: translateY(24px);
@@ -544,19 +729,6 @@
         border-radius: 24px;
       }
 
-      .cc-bg::before {
-        background:
-          linear-gradient(rgba(247, 246, 244, 0.92), rgba(247, 246, 244, 0.95)),
-          url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1100&q=85") center top / cover no-repeat;
-      }
-
-      .cc-bg::after {
-        opacity: 0.10;
-        background:
-          linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08)),
-          url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1100&q=85") center center / cover no-repeat;
-      }
-
       .cc-cta {
         padding: 72px 0;
       }
@@ -569,8 +741,6 @@
   </style>
 </head>
 <body>
-  <div class="cc-bg" aria-hidden="true"></div>
-
   <div class="cc-page" id="top">
     <header class="cc-nav">
       <div class="cc-container cc-nav-inner">
@@ -611,9 +781,14 @@
             </div>
           </div>
 
-          <figure class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
-            <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1300&q=85" alt="Светлый дом с большими окнами" loading="eager" decoding="async">
-          </figure>
+          <div class="cc-photo-card cc-reveal cc-delay-1" aria-label="Светлый дом с большими окнами">
+            <div class="cc-scene scene-hero">
+              <div class="cc-window"></div>
+              <div class="cc-sofa"></div>
+              <div class="cc-table"></div>
+              <div class="cc-plant"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -652,9 +827,14 @@
       <section class="cc-section cc-section-soft" id="services">
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
-            <figure class="cc-photo-card" aria-label="Светлая гостиная">
-              <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1300&q=85" alt="Светлая гостиная" loading="lazy" decoding="async">
-            </figure>
+            <div class="cc-photo-card" aria-label="Светлая гостиная">
+              <div class="cc-scene scene-services">
+                <div class="cc-window"></div>
+                <div class="cc-sofa"></div>
+                <div class="cc-table"></div>
+                <div class="cc-pouf"></div>
+              </div>
+            </div>
           </div>
 
           <div class="cc-copy cc-reveal cc-delay-1">
@@ -697,9 +877,14 @@
           </div>
 
           <div class="cc-photo-wrap cc-reveal cc-delay-1">
-            <figure class="cc-photo-card" aria-label="Окна и второй свет">
-              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1300&q=85" alt="Окна и второй свет" loading="lazy" decoding="async">
-            </figure>
+            <div class="cc-photo-card" aria-label="Окна и второй свет">
+              <div class="cc-scene scene-windows">
+                <div class="cc-window"></div>
+                <div class="cc-sofa"></div>
+                <div class="cc-table"></div>
+                <div class="cc-plant"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -707,9 +892,14 @@
       <section class="cc-section cc-section-soft">
         <div class="cc-container cc-split cc-split-reverse">
           <div class="cc-photo-wrap cc-reveal">
-            <figure class="cc-photo-card" aria-label="Спокойный интерьер">
-              <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1300&q=85" alt="Спокойный интерьер" loading="lazy" decoding="async">
-            </figure>
+            <div class="cc-photo-card" aria-label="Спокойный интерьер">
+              <div class="cc-scene scene-materials">
+                <div class="cc-window"></div>
+                <div class="cc-sofa"></div>
+                <div class="cc-table"></div>
+                <div class="cc-plant"></div>
+              </div>
+            </div>
           </div>
 
           <div class="cc-copy cc-reveal cc-delay-1">
@@ -719,10 +909,10 @@
               которым важны мягкие средства, аккуратная техника и внимательный подход.
             </p>
 
-            <div class="cc-list">
-              <div class="cc-list-item">Учитываем материалы, а не работаем одним средством для всего</div>
-              <div class="cc-list-item">Подбираем способ ухода под камень, дерево, матовые поверхности и текстиль</div>
-              <div class="cc-list-item">Сохраняем не только чистоту, но и внешний вид интерьера</div>
+            <div class="cc-pill-stack">
+              <div class="cc-pill">Учитываем материалы, а не работаем одним средством для всего</div>
+              <div class="cc-pill">Подбираем способ ухода под камень, дерево, матовые поверхности и текстиль</div>
+              <div class="cc-pill">Сохраняем не только чистоту, но и внешний вид интерьера</div>
             </div>
           </div>
         </div>
